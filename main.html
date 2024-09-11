@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mysterious Friday the 13th Event</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            scroll-behavior: smooth;
+            background-color: #121212;
+        }
+        .section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            overflow: hidden;
+        }
+        .content {
+            background: rgba(18, 18, 18, 0.8);
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 90%;
+            width: 600px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        h1, h2 {
+            margin-bottom: 1rem;
+            font-family: 'Copperplate', 'Papyrus', fantasy;
+        }
+        p {
+            margin-bottom: 1rem;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #800000;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: #600000;
+        }
+        #rsvp-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        #rsvp-form input, #rsvp-form button {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #333;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #e0e0e0;
+        }
+        #rsvp-form button {
+            background-color: #800000;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #rsvp-form button:hover {
+            background-color: #600000;
+        }
+        .mysterious-symbol {
+            position: absolute;
+            opacity: 0.1;
+            font-size: 3rem;
+            pointer-events: none;
+        }
+        @media (max-width: 768px) {
+            .content {
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            p {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section id="hero" class="section" style="background-image: url('/api/placeholder/1920/1080');">
+        <div class="content">
+            <h1>Mysterious Gathering on Friday the 13th</h1>
+            <p>Embrace the unknown at our exclusive property</p>
+            <a href="#story" class="cta-button">Unveil the Mystery</a>
+        </div>
+    </section>
+
+    <section id="story" class="section" style="background-image: url('/api/placeholder/1920/1080');">
+        <div class="content">
+            <h2>A Night of Enigmas</h2>
+            <p>Join us for an evening shrouded in mystery. Unlock secrets and experience the thrill of the unexpected in our hauntingly beautiful surroundings.</p>
+        </div>
+    </section>
+
+    <section id="features" class="section" style="background-image: url('/api/placeholder/1920/1080');">
+        <div class="content">
+            <h2>Cryptic Encounters</h2>
+            <ul>
+                <li>Shadowy corridors with hidden passages</li>
+                <li>Rooms filled with curious artifacts</li>
+                <li>Mystifying entertainment</li>
+                <li>Gardens of whispering statues</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="event" class="section" style="background-image: url('/api/placeholder/1920/1080');">
+        <div class="content">
+            <h2>The Gathering</h2>
+            <p>An evening of enigmatic dining, spectral melodies, and encounters with the unexplained. Dress code: Dark elegance and masks encouraged.</p>
+        </div>
+    </section>
+
+    <section id="rsvp" class="section" style="background-image: url('/api/placeholder/1920/1080');">
+        <div class="content">
+            <h2>RSVP to the Unknown</h2>
+            <p>Secure your invitation to cross the threshold</p>
+            <form id="rsvp-form">
+                <input type="text" placeholder="Your Name (or alias)" required>
+                <input type="email" placeholder="Your Email" required>
+                <button type="submit">Accept the Invitation</button>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.utils.toArray(".section").forEach((section, i) => {
+            ScrollTrigger.create({
+                trigger: section,
+                start: "top top",
+                pin: true,
+                pinSpacing: false
+            });
+        });
+
+        gsap.utils.toArray(".content").forEach((content) => {
+            gsap.from(content, {
+                y: 100,
+                opacity: 0,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: content,
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+
+        document.querySelector("#rsvp-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+            alert("Your RSVP has been received. Prepare for a night of mystery...");
+        });
+
+        // Add mysterious symbols
+        const symbols = ['☽', '♅', '☿', '♆', '⚹', '☤', '⚶', '⚸'];
+        const sections = document.querySelectorAll('.section');
+
+        sections.forEach(section => {
+            for (let i = 0; i < 5; i++) {
+                const symbol = document.createElement('div');
+                symbol.classList.add('mysterious-symbol');
+                symbol.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                symbol.style.left = `${Math.random() * 100}%`;
+                symbol.style.top = `${Math.random() * 100}%`;
+                section.appendChild(symbol);
+            }
+        });
+    </script>
+</body>
+</html>
