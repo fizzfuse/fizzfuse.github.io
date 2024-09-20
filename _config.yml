@@ -3,6 +3,9 @@ description: Event countdown and information
 baseurl: ""
 url: ""
 
+# Google Analytics
+google_analytics: G-89MKNVLWM4
+
 # Build settings
 markdown: kramdown
 theme: minima
