@@ -9,15 +9,8 @@ title: TIME IS RUNNING OUT
 
 <div id="countdown">LOADING COUNTDOWN...</div>
 
-MISSION: WHAT HAPPENS AFTER 2:00?
-
-PAYLOAD: TURBOSOUND SYSTEM
-
-LOCATION: CLASSIFIED (INVITE ONLY)
-
-INTEL ACCQUIRED: IT'S SOMEWHERE NEAR FISHTOWN
-
-TARGET: TIP, OZMA, DJ LOCTGRUV, ??????
+----FIZZ&FUZE 2023-2024----
+This weekend marked exactly one year with 9th & Girard. After 66 crazy functions, L&I finally caught wind of our happy little rave family under the train tracks. I'm excited to share what we have next in store for you all. It's only upwards from here. To Mvch Fvtvre~
 
 W3W: ///tiger.text.offer///
 
