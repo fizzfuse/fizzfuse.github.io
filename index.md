@@ -3,9 +3,9 @@ layout: default
 title: TIME IS RUNNING OUT
 ---
 
-# 2518 NORTH HOWARD ST
+# WAREHOUSE ON WATTS
 
-[ACCESS INVITE](https://lu.ma/dd28enwe){:.btn}
+[FOLLOW US](https://www.instagram.com/fizzfuze?igsh=MXJkbzg1cHR5Z3c2Mw==){:.btn}
 
 <div id="countdown">LOADING COUNTDOWN...</div>
 
@@ -23,6 +23,6 @@ W3W: ///tiger.text.offer///
 
 ![Event Flyer]({{ '/assets/images/flyer.jpg' | relative_url }}){:.flyer}
 
-[ACCESS INVITE](https://lu.ma/dd28enwe){:.btn}
+[FOLLOW US]([(https://www.instagram.com/fizzfuze?igsh=MXJkbzg1cHR5Z3c2Mw==)]){:.btn}
 
 <p class="anniversary">HAPPY 1 YEAR ANNIVERSARY!</p>
