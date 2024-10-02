@@ -13,6 +13,7 @@ title: #CANCELFIZZFUZE
 
 Psyhop is an event series by the FizzFuze crew, bringing psychedelic techno and psytrance artists from around the world to Philadelphia & beyond. PsyPhi Records is a fresh label brewing in the background, with hometown releases scheduled for early 2025. Keep an ear out for unreleased tracks at our upcoming events. :)
 _____________________________________________________________________________________________________________________________________________________________________________________________
+
 October 11th, 2024 we will be hosting AlpaKa MuziK from Montreal. They are international heavy hitters in the psytech scene.
 
 KOZY aka Jeff Koz is a Montreal-based DJ & Entrepreneur specialising in dark & groovy underground techno music. KOZY's dedication to music is evident in his tight mixes, solid track selection and inclination towards groovy synths and heavy, disruptive bass. In 2019, he founded AlpaKa MuziK, a Montreal-based record label pushing world-class underground progressive, minimal and psychedelic techno beats.
@@ -28,12 +29,6 @@ technicality married with a constantly evolving but very much dance floor groove
 _________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 
 
-
-
-
-
-
-
 ----FIZZ&FUZE 2023-2024----
 
 This weekend marked exactly one year with 9th & Girard. After 66 crazy functions, L&I finally caught wind of our happy little rave family under the train tracks. I'm excited to share what we have next in store for you all. It's only upwards from here. To Mvch Fvtvre~
@@ -44,4 +39,4 @@ W3W: ///tiger.text.offer///
 
 [FOLLOW US]([(https://www.instagram.com/fizzfuze?igsh=MXJkbzg1cHR5Z3c2Mw==)]){:.btn}
 
-<p class="anniversary">HAPPY 1 YEAR ANNIVERSARY!</p>
+<p class="anniversary">PSYHOP_002</p>
