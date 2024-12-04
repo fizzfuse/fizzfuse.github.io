@@ -52,7 +52,7 @@ const BirthdayFundButton = () => (
   <Button 
     className="bg-cyan-500/90 hover:bg-cyan-600 flex items-center justify-center gap-2 shadow-lg 
     shadow-cyan-500/20 transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105 mt-4 mx-auto"
-    onClick={() => window.open('https://ko-fi.com/yourlink/', '_blank')}
+    onClick={() => window.open('https://ko-fi.comF1F7RTT2E/', '_blank')}
   >
     <Coffee className="h-4 w-4" />
     Contribute to Birthday Fund
