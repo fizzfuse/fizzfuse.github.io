@@ -13,69 +13,30 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const SHEETS_ENDPOINT = 'YOUR_GOOGLE_SCRIPT_DEPLOYMENT_URL';
+const SHEETS_ENDPOINT = 'AKfycbyWK2a17oW8siozgT5IC3R9_tWKZAmyPEGx-JDxxTZv4N2lxS0aZlhR3LJw3QyTqqsZDQ';
 
 const ITINERARY_DATA = [
   {
-    day: "Friday, December 6th",
-    title: "Welcome Dinner & Game Night",
+    day: "", // Format like "Friday, December 6th"
+    title: "", // Main event title
     details: [
-      "Dinner at Bella's Italian Restaurant (6:00 PM - 8:00 PM)",
-      "Game night at Sarah's place (8:30 PM onwards)",
+      "", // Event details in bullet points
+      "", // Additional details
     ],
-    location: "Bella's Italian Restaurant → Sarah's House",
-    timeline: "6:00 PM - Late"
-  },
-  {
-    day: "Saturday, December 7th",
-    title: "Adventure Day & Party",
-    details: [
-      "Escape Room at Puzzle Masters (11:00 AM)",
-      "Lunch at Fusion Kitchen (1:30 PM)",
-      "Birthday Party at Skyline Lounge (7:00 PM - 11:00 PM)",
-    ],
-    location: "Multiple Locations - See Details",
-    timeline: "11:00 AM - 11:00 PM"
-  },
-  {
-    day: "Sunday, December 8th",
-    title: "Recovery Brunch",
-    details: [
-      "Brunch buffet at The Garden Café",
-      "Outdoor seating available (weather permitting)",
-    ],
-    location: "The Garden Café",
-    timeline: "11:00 AM - 2:00 PM"
+    location: "", // Location(s)
+    timeline: "" // Time like "6:00 PM - Late"
   }
 ];
 
 const WISHLIST_DATA = [
   {
     id: 1,
-    name: "Mechanical Keyboard",
-    price: 150,
-    description: "RGB Mechanical Keyboard with Brown Switches. Features customizable RGB lighting, hot-swappable switches, and wireless connectivity. Perfect for both gaming and productivity.",
-    category: "Tech",
-    image: "/api/placeholder/400/300",
-    link: "https://example.com/keyboard"
-  },
-  {
-    id: 2,
-    name: "Studio Ghibli Art Book",
-    price: 45,
-    description: "Collector's Edition Art Book featuring concept art, character designs, and background illustrations from all Studio Ghibli films. Includes exclusive interviews and behind-the-scenes content.",
-    category: "Books",
-    image: "/api/placeholder/400/300",
-    link: "https://example.com/artbook"
-  },
-  {
-    id: 3,
-    name: "Nintendo Switch Game",
-    price: 60,
-    description: "Latest Mario adventure game with stunning graphics, new power-ups, and multiplayer features. Includes all DLC content and exclusive in-game items.",
-    category: "Gaming",
-    image: "/api/placeholder/400/300",
-    link: "https://example.com/game"
+    name: "", // Item name
+    price: 0, // Price in numbers (no $ symbol)
+    description: "", // Item description
+    category: "", // Category like "Tech", "Books", etc.
+    image: "", // Image URL
+    link: "" // Product link
   }
 ];
 
