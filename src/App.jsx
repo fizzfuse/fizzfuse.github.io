@@ -17,23 +17,65 @@ const SHEETS_ENDPOINT = 'AKfycbyWK2a17oW8siozgT5IC3R9_tWKZAmyPEGx-JDxxTZv4N2lxS0
 
 const ITINERARY_DATA = [
   {
-    day: "", // Format like "Friday, December 6th"
-    title: "", // Main event title
-    details: [
-      "", // Event details in bullet points
-      "", // Additional details
+    day: "Wednesday, December 4th", // Format like "Friday, December 6th"
+    title: "South Philly Pizza Party", // Main event title
+    details: ["Come hang at the casa",
+"Open decks all night",
+"Donate to pizza fund", // Event details in bullet points
     ],
-    location: "", // Location(s)
-    timeline: "" // Time like "6:00 PM - Late"
+    location: "Mikey's House (DM @fizzfuze For Address)", // Location(s)
+    timeline: "9:00 PM - Late" // Time like "6:00 PM - Late"
   }
+
+  ,  {
+    day: "Thursday, December 5th", // Format like "Friday, December 6th"
+    title: "a Warehouse Party", // Main event title
+    details: ["Featuring Live Music",
+      "Birthday Set by Tip",
+      "Hot Coffee Returns"// Event details in bullet points
+    ],
+    location: "South Philly (DM @fizzfuze For Address)", // Location(s)
+    timeline: "10:00 PM - 4:00 AM" // Time like "6:00 PM - Late"
+  }
+  ,  {
+    day: "Friday, December 6th", // Format like "Friday, December 6th"
+    title: "Atlantic City Pt. 1", // Main event title
+    details: ["We got rooms on rooms",
+      "Setting up a pop up somewhere",
+      "Pregame for Saturday"// Event details in bullet points
+    ],
+    location: "Atlantic City - Ocean Resort", // Location(s)
+    timeline: "8:00 PM - ?????" // Time like "6:00 PM - Late"
+  }
+  ,  {
+    day: "Saturday, December 7th", // Format like "Friday, December 6th"
+    title: "Atlantic City Pt. 2", // Main event title
+    details: ["1pm-6pm The Pool @ Harrahs",
+      "7pm-10pm Dinner/Hotel Reset",
+      "10pm-4am TIESTO (VIP Table)"// Event details in bullet points
+    ],
+    location: "Atlantic City - Ocean Resort", // Location(s)
+    timeline: "1:00 PM - ?????" // Time like "6:00 PM - Late"
+  }
+  ,  {
+    day: "Thursday, December 12th", // Format like "Friday, December 6th"
+    title: "SAYTEK LIVE", // Main event title
+    details: ["Supporting Set by RFLXTNS",
+      "Powered by Fizz/Fuze",
+      "New lighting & haze"// Event details in bullet points
+    ],
+    location: "South Philly (DM @fizzfuze for info)", // Location(s)
+    timeline: "10:00 PM - ?????" // Time like "6:00 PM - Late"
+  }
+
 ];
 
 const WISHLIST_DATA = [
   {
     id: 1,
-    name: "", // Item name
-    price: 0, // Price in numbers (no $ symbol)
-    description: "", // Item description
+    name: "LOADING...", // Item name
+    price: 999, // Price in numbers (no $ symbol)
+    description: "She wants you to come to Saytek next week. Maybe some fresh CDJs and kicks.", // Item description
     category: "", // Category like "Tech", "Books", etc.
     image: "", // Image URL
     link: "" // Product link
@@ -43,7 +85,7 @@ const WISHLIST_DATA = [
 const ChromeTitle = () => (
   <div className="relative text-center p-4">
     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-cyan-400 to-white text-transparent bg-clip-text">
-      Sarah's Birthday Celebration!
+      Devon's Birthday Adventure!
     </h1>
   </div>
 );
@@ -52,11 +94,12 @@ const BirthdayFundButton = () => (
   <Button 
     className="bg-cyan-500/90 hover:bg-cyan-600 flex items-center justify-center gap-2 shadow-lg 
     shadow-cyan-500/20 transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105 mt-4 mx-auto"
-    onClick={() => window.open('https://ko-fi.com/fizzfuze', '_blank', 'noopener,noreferrer')}
+    onClick={() => window.open('https://ko-fi.com/fizzfuze/donate?amount=20', '_blank', 'noopener,noreferrer')}
   >
     <Coffee className="h-4 w-4" />
-    Contribute to Birthday Fund
+    $$ Send her Birthday Monies $$
   </Button>
+  
 );
 
 const AddToCalendarButton = ({ event }) => {
@@ -198,25 +241,32 @@ const WishlistItem = ({ item }) => (
           <ExternalLink className="mr-2 h-4 w-4" />
           View Item
         </Button>
-        <KofiButton amount={item.price} />
+        <KofiButton amount={item.price} message="Happy Birthday!" />
       </div>
     </CardContent>
   </Card>
 );
 
-const KofiButton = ({ amount }) => (
-  <Button 
-    className="w-full bg-cyan-500/90 hover:bg-cyan-600 flex items-center justify-center gap-2 
-    shadow-lg shadow-cyan-500/20 transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105"
-    onClick={() => {
-      const url = `https://ko-fi.com/fizzfuze?amount=${amount || ''}`;
-      window.open(url, '_blank', 'noopener,noreferrer');
-    }}
-  >
-    <Coffee className="h-4 w-4" />
-    {amount ? `Contribute $${amount}` : 'Support Birthday Fund'}
-  </Button>
-);
+const KofiButton = ({ amount, message }) => {
+  const url = new URL('https://ko-fi.com/fizzfuze/donate');
+  if (amount) {
+    url.searchParams.append('amount', amount);
+  }
+  if (message) {
+    url.searchParams.append('message', message);
+  }
+
+  return (
+    <Button 
+      className="w-full bg-cyan-500/90 hover:bg-cyan-600 flex items-center justify-center gap-2 
+      shadow-lg shadow-cyan-500/20 transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105"
+      onClick={() => window.open(url.toString(), '_blank', 'noopener,noreferrer')}
+    >
+      <Coffee className="h-4 w-4" />
+      {amount ? `Contribute $${amount}` : 'Support Birthday Fund'}
+    </Button>
+  );
+};
 
 const BirthdayApp = () => {
   useEffect(() => {
@@ -229,7 +279,7 @@ const BirthdayApp = () => {
     script.onload = () => {
       window.kofiWidgetOverlay.draw('fizzfuze', {
         'type': 'floating-chat',
-        'floating-chat.donateButton.text': 'Support me',
+        'floating-chat.donateButton.text': 'TIP JAR',
         'floating-chat.donateButton.background-color': '#00b9fe',
         'floating-chat.donateButton.text-color': '#fff'
       });
