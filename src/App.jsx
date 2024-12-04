@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -52,8 +52,8 @@ const BirthdayFundButton = () => (
   <Button 
     className="bg-cyan-500/90 hover:bg-cyan-600 flex items-center justify-center gap-2 shadow-lg 
     shadow-cyan-500/20 transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105 mt-4 mx-auto"
-    onClick={() => window.open(`https://ko-fi.com/fizzfuze/checkout?amount=${20}`, '_blank', 'noopener,noreferrer')}
-    >
+    onClick={() => window.open('https://ko-fi.com/fizzfuze', '_blank', 'noopener,noreferrer')}
+  >
     <Coffee className="h-4 w-4" />
     Contribute to Birthday Fund
   </Button>
@@ -198,53 +198,97 @@ const WishlistItem = ({ item }) => (
           <ExternalLink className="mr-2 h-4 w-4" />
           View Item
         </Button>
-        <Button 
-          className="w-full bg-cyan-500/90 hover:bg-cyan-600 flex items-center justify-center gap-2 
-          shadow-lg shadow-cyan-500/20 transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105"
-          onClick={() => window.open(`https://ko-fi.com/fizzfuze/checkout?amount=${item.price}`, '_blank', 'noopener,noreferrer')}
-        >
-          <Coffee className="h-4 w-4" />
-          Contribute ${item.price}
-        </Button>
+        <KofiButton amount={item.price} />
       </div>
     </CardContent>
   </Card>
 );
 
-const BirthdayApp = () => (
-  <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black text-white p-4 md:p-6">
-    <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_center,rgba(34,211,238,0.05),transparent)] 
-    pointer-events-none" />
-    
-    <div className="max-w-6xl mx-auto mb-8 md:mb-12 text-center relative">
-      <ChromeTitle />
-      <BirthdayFundButton />
-    </div>
-
-    <div className="max-w-6xl mx-auto mb-8 md:mb-16 relative">
-      <h2 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6 flex items-center gap-2 text-cyan-400">
-        <Calendar className="text-cyan-400" />
-        Weekend Itinerary
-      </h2>
-      <div className="space-y-4 md:space-y-6">
-        {ITINERARY_DATA.map((day, index) => (
-          <ItineraryDay key={index} day={day} />
-        ))}
-      </div>
-    </div>
-
-    <div className="max-w-6xl mx-auto mb-8 md:mb-16 relative">
-      <h2 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6 flex items-center gap-2 text-cyan-400">
-        <Gift className="text-cyan-400" />
-        Wishlist
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {WISHLIST_DATA.map(item => (
-          <WishlistItem key={item.id} item={item} />
-        ))}
-      </div>
-    </div>
-  </div>
+const KofiButton = ({ amount }) => (
+  <Button 
+    className="w-full bg-cyan-500/90 hover:bg-cyan-600 flex items-center justify-center gap-2 
+    shadow-lg shadow-cyan-500/20 transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105"
+    onClick={() => {
+      if (window.kofiWidgetOverlay) {
+        window.kofiWidgetOverlay.draw('fizzfuze', {
+          'type': 'floating-chat',
+          'floating-chat.donateButton.text': amount ? `Contribute $${amount}` : 'Support me',
+          'floating-chat.donateButton.background-color': '#00b9fe',
+          'floating-chat.donateButton.text-color': '#fff'
+        });
+      }
+    }}
+  >
+    <Coffee className="h-4 w-4" />
+    {amount ? `Contribute $${amount}` : 'Support Birthday Fund'}
+  </Button>
 );
+
+const BirthdayApp = () => {
+  useEffect(() => {
+    // Load Ko-fi widget script
+    const script = document.createElement('script');
+    script.src = 'https://storage.ko-fi.com/cdn/scripts/overlay-widget.js';
+    script.async = true;
+    
+    // Once the script is loaded, initialize the widget
+    script.onload = () => {
+      window.kofiWidgetOverlay.draw('fizzfuze', {
+        'type': 'floating-chat',
+        'floating-chat.donateButton.text': 'Support me',
+        'floating-chat.donateButton.background-color': '#00b9fe',
+        'floating-chat.donateButton.text-color': '#fff'
+      });
+    };
+    
+    document.body.appendChild(script);
+
+    // Cleanup function
+    return () => {
+      document.body.removeChild(script);
+      // Also remove the widget if it exists
+      const widget = document.getElementById('ko-fi-overlay-widget');
+      if (widget) {
+        widget.remove();
+      }
+    };
+  }, []); // Empty dependency array means this runs once on mount
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black text-white p-4 md:p-6">
+      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_center,rgba(34,211,238,0.05),transparent)] 
+      pointer-events-none" />
+      
+      <div className="max-w-6xl mx-auto mb-8 md:mb-12 text-center relative">
+        <ChromeTitle />
+        <BirthdayFundButton />
+      </div>
+
+      <div className="max-w-6xl mx-auto mb-8 md:mb-16 relative">
+        <h2 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6 flex items-center gap-2 text-cyan-400">
+          <Calendar className="text-cyan-400" />
+          Weekend Itinerary
+        </h2>
+        <div className="space-y-4 md:space-y-6">
+          {ITINERARY_DATA.map((day, index) => (
+            <ItineraryDay key={index} day={day} />
+          ))}
+        </div>
+      </div>
+
+      <div className="max-w-6xl mx-auto mb-8 md:mb-16 relative">
+        <h2 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6 flex items-center gap-2 text-cyan-400">
+          <Gift className="text-cyan-400" />
+          Wishlist
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {WISHLIST_DATA.map(item => (
+            <WishlistItem key={item.id} item={item} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default BirthdayApp;
