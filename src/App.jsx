@@ -48,75 +48,19 @@ const ChromeTitle = () => (
   </div>
 );
 
-const BirthdayFundButton = () => {
-  const [amount, setAmount] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleKofiSubmit = async () => {
-    if (!amount) return;
-    setIsLoading(true);
-    try {
-      await fetch(SHEETS_ENDPOINT, {
-        method: 'POST',
-        body: JSON.stringify({
-          type: 'kofi_contribution',
-          amount: parseFloat(amount)
-        })
-      });
-      window.open(`https://ko-fi.com/F1F7RTT2E`, '_blank', 'noopener,noreferrer');
-    } catch (error) {
-      console.error('Ko-fi contribution failed:', error);
-    } finally {
-      setIsLoading(false);
-      setAmount('');
-    }
-  };
-
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button 
-          className="bg-cyan-500/90 hover:bg-cyan-600 flex items-center justify-center gap-2 shadow-lg 
-          shadow-cyan-500/20 transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105 mt-4 mx-auto"
-        >
-          <Coffee className="h-4 w-4" />
-          Contribute to Birthday Fund
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="center" className="w-64 p-4">
-        <div className="space-y-4">
-          <input
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            placeholder="Enter amount..."
-            className="w-full px-3 py-2 bg-transparent border border-cyan-400/20 rounded-md 
-            focus:border-cyan-400/40 focus:outline-none text-white"
-          />
-          <Button 
-            className="w-full bg-cyan-500/90 hover:bg-cyan-600"
-            onClick={handleKofiSubmit}
-            disabled={!amount || isLoading}
-          >
-            {isLoading ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : (
-              <>
-                <Coffee className="h-4 w-4" />
-                Send ${amount || '0'}
-              </>
-            )}
-          </Button>
-        </div>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
-};
+const BirthdayFundButton = () => (
+  <Button 
+    className="bg-cyan-500/90 hover:bg-cyan-600 flex items-center justify-center gap-2 shadow-lg 
+    shadow-cyan-500/20 transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105 mt-4 mx-auto"
+    onClick={() => window.open(`https://ko-fi.com/fizzfuze/checkout?amount=${20}`, '_blank', 'noopener,noreferrer')}
+    >
+    <Coffee className="h-4 w-4" />
+    Contribute to Birthday Fund
+  </Button>
+);
 
 const AddToCalendarButton = ({ event }) => {
-  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-  const handleCalendarAdd = async (type) => {
+  const handleCalendarAdd = async () => {
     try {
       await fetch(SHEETS_ENDPOINT, {
         method: 'POST',
@@ -126,58 +70,29 @@ const AddToCalendarButton = ({ event }) => {
           title: event.title
         })
       });
-
-      // On mobile, directly open the native calendar
-      if (isMobile) {
-        window.open('webcal://calendar.apple.com', '_blank');
-      } else {
-        // On desktop, show dropdown
-        if (type === 'google') {
-          window.open('https://calendar.google.com', '_blank');
-        } else {
-          window.open('webcal://calendar.apple.com', '_blank');
-        }
-      }
+      
+      // Google Calendar URL construction
+      const eventTitle = encodeURIComponent(event.title);
+      const eventDetails = encodeURIComponent(event.details.join('\n'));
+      const eventLocation = encodeURIComponent(event.location);
+      
+      const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${eventTitle}&details=${eventDetails}&location=${eventLocation}`;
+      
+      window.open(googleUrl, '_blank', 'noopener,noreferrer');
     } catch (error) {
       console.error('Calendar add failed:', error);
     }
   };
 
-  // On mobile, show a simple button
-  if (isMobile) {
-    return (
-      <Button 
-        variant="outline"
-        className="w-full border-cyan-400/20 hover:border-cyan-400/40 hover:bg-cyan-400/10 transition-all duration-300"
-        onClick={() => handleCalendarAdd()}
-      >
-        <CalendarPlus className="mr-2 h-4 w-4" />
-        Add to Calendar
-      </Button>
-    );
-  }
-
-  // On desktop, show dropdown
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button 
-          variant="outline"
-          className="w-full border-cyan-400/20 hover:border-cyan-400/40 hover:bg-cyan-400/10 transition-all duration-300"
-        >
-          <CalendarPlus className="mr-2 h-4 w-4" />
-          Add to Calendar
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-48">
-        <DropdownMenuItem onClick={() => handleCalendarAdd('google')}>
-          Google Calendar
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => handleCalendarAdd('apple')}>
-          Apple Calendar
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <Button 
+      variant="outline"
+      className="w-full border-cyan-400/20 hover:border-cyan-400/40 hover:bg-cyan-400/10 transition-all duration-300"
+      onClick={handleCalendarAdd}
+    >
+      <CalendarPlus className="mr-2 h-4 w-4" />
+      Add to Google Calendar
+    </Button>
   );
 };
 
@@ -286,7 +201,7 @@ const WishlistItem = ({ item }) => (
         <Button 
           className="w-full bg-cyan-500/90 hover:bg-cyan-600 flex items-center justify-center gap-2 
           shadow-lg shadow-cyan-500/20 transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105"
-          onClick={() => window.open(`https://ko-fi.com/F1F7RTT2E/`, '_blank')}
+          onClick={() => window.open(`https://ko-fi.com/fizzfuze/checkout?amount=${item.price}`, '_blank', 'noopener,noreferrer')}
         >
           <Coffee className="h-4 w-4" />
           Contribute ${item.price}
