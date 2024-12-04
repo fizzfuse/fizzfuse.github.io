@@ -209,14 +209,8 @@ const KofiButton = ({ amount }) => (
     className="w-full bg-cyan-500/90 hover:bg-cyan-600 flex items-center justify-center gap-2 
     shadow-lg shadow-cyan-500/20 transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105"
     onClick={() => {
-      if (window.kofiWidgetOverlay) {
-        window.kofiWidgetOverlay.draw('fizzfuze', {
-          'type': 'floating-chat',
-          'floating-chat.donateButton.text': amount ? `Contribute $${amount}` : 'Support me',
-          'floating-chat.donateButton.background-color': '#00b9fe',
-          'floating-chat.donateButton.text-color': '#fff'
-        });
-      }
+      const url = `https://ko-fi.com/fizzfuze?amount=${amount || ''}`;
+      window.open(url, '_blank', 'noopener,noreferrer');
     }}
   >
     <Coffee className="h-4 w-4" />
