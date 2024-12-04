@@ -87,31 +87,16 @@ const ChromeTitle = () => (
   </div>
 );
 
-const BirthdayFundButton = () => {
-  const handleButtonClick = () => {
-    const width = 480;
-    const height = 680;
-    const left = (window.screen.width / 2) - (width / 2);
-    const top = (window.screen.height / 2) - (height / 2);
-    
-    window.open(
-      'https://ko-fi.com/fizzfuze/donate',
-      'Ko-fi donations',
-      `width=${width},height=${height},top=${top},left=${left},scrollbars=yes,location=no,toolbar=no,menubar=no`
-    );
-  };
-
-  return (
-    <Button 
-      className="bg-cyan-500/90 hover:bg-cyan-600 flex items-center justify-center gap-2 shadow-lg 
-      shadow-cyan-500/20 transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105 mt-4"
-      onClick={handleButtonClick}
-    >
-      <Coffee className="h-4 w-4" />
-      $$ Click 2 Send Funds for Fresh Claws $$
-    </Button>
-  );
-};
+const BirthdayFundButton = () => (
+  <Button 
+    className="bg-cyan-500/90 hover:bg-cyan-600 flex items-center justify-center gap-2 shadow-lg 
+    shadow-cyan-500/20 transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105 mt-4 mx-auto"
+    onClick={() => window.open('https://ko-fi.com/yourlink/', '_blank')}
+  >
+    <Coffee className="h-4 w-4" />
+    Contribute to Birthday Fund
+  </Button>
+);
 
 const AddToCalendarButton = ({ event }) => {
   const handleCalendarAdd = async (type) => {
@@ -222,79 +207,56 @@ const ItineraryDay = ({ day }) => (
   </Card>
 );
 
-const WishlistItem = ({ item }) => {
-  const handleKofiClick = () => {
-    const title = `Contributing to: ${item.name}`;
-    const kofiURL = `https://ko-fi.com/fizzfuze/donate?amount=${item.price}&message=${encodeURIComponent(title)}`;
-    
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if (isMobile) {
-      window.open(kofiURL, '_blank');
-    } else {
-      const width = 480;
-      const height = 680;
-      const left = (window.screen.width / 2) - (width / 2);
-      const top = (window.screen.height / 2) - (height / 2);
-      
-      window.open(
-        kofiURL,
-        'Ko-fi donations',
-        `width=${width},height=${height},top=${top},left=${left},scrollbars=yes,location=no,toolbar=no,menubar=no`
-      );
-    }
-  };
-
-  return (
-    <Card className="bg-gray-900/50 border-cyan-400/20 backdrop-blur-sm hover:border-cyan-400/40 
-    transition-all duration-300 group relative h-[500px] flex flex-col">
-      <CardHeader className="pb-4 relative">
-        <div className="aspect-video overflow-hidden rounded-lg mb-4 h-36 md:h-48">
-          <img
-            src={item.image}
-            alt={item.name}
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-          />
-        </div>
-        <CardTitle className="text-base md:text-lg text-white group-hover:text-cyan-300 
-        transition-colors line-clamp-1">
-          {item.name}
-        </CardTitle>
-        <div className="flex gap-2 flex-wrap">
-          <Badge variant="secondary" className="bg-cyan-400/10 text-cyan-400 text-xs md:text-sm">
-            ${item.price}
-          </Badge>
-          <Badge variant="outline" className="border-cyan-400/20 text-cyan-400 text-xs md:text-sm">
-            {item.category}
-          </Badge>
-        </div>
-      </CardHeader>
-      <CardContent className="space-y-4 relative flex-grow flex flex-col">
-        <p className="text-white/80 text-xs md:text-sm line-clamp-3 flex-grow">
-          {item.description}
-        </p>
-        <div className="space-y-2 mt-auto">
-          <Button 
-            variant="outline" 
-            className="w-full border-cyan-400/20 hover:border-cyan-400/40 hover:bg-cyan-400/10 
-            transition-all duration-300"
-            onClick={() => window.open(item.link, '_blank')}
-          >
-            <ExternalLink className="mr-2 h-4 w-4" />
-            View Item
-          </Button>
-          <Button 
-            className="w-full bg-cyan-500/90 hover:bg-cyan-600 flex items-center justify-center gap-2 
-            shadow-lg shadow-cyan-500/20 transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105"
-            onClick={handleKofiClick}
-          >
-            <Coffee className="h-4 w-4" />
-            Contribute ${item.price}
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
-  );
-};
+const WishlistItem = ({ item }) => (
+  <Card className="bg-gray-900/50 border-cyan-400/20 backdrop-blur-sm hover:border-cyan-400/40 
+  transition-all duration-300 group relative h-[500px] flex flex-col">
+    <CardHeader className="pb-4 relative">
+      <div className="aspect-video overflow-hidden rounded-lg mb-4 h-36 md:h-48">
+        <img
+          src={item.image}
+          alt={item.name}
+          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+      </div>
+      <CardTitle className="text-base md:text-lg text-white group-hover:text-cyan-300 
+      transition-colors line-clamp-1">
+        {item.name}
+      </CardTitle>
+      <div className="flex gap-2 flex-wrap">
+        <Badge variant="secondary" className="bg-cyan-400/10 text-cyan-400 text-xs md:text-sm">
+          ${item.price}
+        </Badge>
+        <Badge variant="outline" className="border-cyan-400/20 text-cyan-400 text-xs md:text-sm">
+          {item.category}
+        </Badge>
+      </div>
+    </CardHeader>
+    <CardContent className="space-y-4 relative flex-grow flex flex-col">
+      <p className="text-white/80 text-xs md:text-sm line-clamp-3 flex-grow">
+        {item.description}
+      </p>
+      <div className="space-y-2 mt-auto">
+        <Button 
+          variant="outline" 
+          className="w-full border-cyan-400/20 hover:border-cyan-400/40 hover:bg-cyan-400/10 
+          transition-all duration-300"
+          onClick={() => window.open(item.link, '_blank')}
+        >
+          <ExternalLink className="mr-2 h-4 w-4" />
+          View Item
+        </Button>
+        <Button 
+          className="w-full bg-cyan-500/90 hover:bg-cyan-600 flex items-center justify-center gap-2 
+          shadow-lg shadow-cyan-500/20 transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105"
+          onClick={() => window.open(`https://ko-fi.com/yourlink/`, '_blank')}
+        >
+          <Coffee className="h-4 w-4" />
+          Contribute ${item.price}
+        </Button>
+      </div>
+    </CardContent>
+  </Card>
+);
 
 const BirthdayApp = () => (
   <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black text-white p-4 md:p-6">
