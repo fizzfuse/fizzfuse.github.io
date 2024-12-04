@@ -4,18 +4,10 @@ import path from 'path'
 
 export default defineConfig({
   plugins: [react()],
-  base: process.env.NODE_ENV === 'production' ? '/fizzfuse.github.io/' : '/',
+  base: './',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
-  },
-  optimizeDeps: {
-    exclude: ['fsevents']
-  },
-  server: {
-    watch: {
-      ignored: ['**/node_modules/**']
-    }
   }
 })
